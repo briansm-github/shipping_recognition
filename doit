@@ -1,0 +1,31 @@
+#!/bin/bash
+# run recognizer on a 10 second sample of the test data
+
+if [ ! -f training.raw ]; then
+echo decompressing training.flac first...
+cat training.flac.* > training.flac
+flac -d --force-raw-format --endian little --sign signed  training.flac
+fi
+
+if [ ! -f test.raw ]; then
+echo decompressing test.flac first....
+cat test.flac.* > test.flac
+flac -d --force-raw-format --endian little --sign signed test.flac
+fi
+
+
+if [ ! -f training.fe ]; then
+echo generating training-data features... will take a while...
+./features training.raw training.fe
+fi
+
+# first, clean up from any previous runs...
+rm sample* match*
+# Extract a random 10 second sample from test.raw into sample.raw:
+./chop
+
+# generate feature data from sample.raw:
+./features sample.raw sample.fe
+
+# run the correlator to get matches within the training audio:
+./compare

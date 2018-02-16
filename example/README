@@ -1,0 +1,11 @@
+output audio from an example run.
+The full 10 second test sample is in sample.raw
+
+This generates 8 matching segments: sample_1.raw to sample_8.raw
+The matches from the training audio are in match_1.raw to match_8.raw
+
+As usual, these audio segments are in 8000 samples/sec 16-bit format.
+Conversion to WAV via sox:
+sox -r 8000 -s -c1 -2 blah.raw blah.wav
+
+Or use wavesurfer or similar to examine/listen to the samples

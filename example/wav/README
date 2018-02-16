@@ -1,0 +1,2 @@
+use 'sox' to do the conversion, something like:
+sox -r 8000 -s -c1 -2 blah.raw blah.wav
